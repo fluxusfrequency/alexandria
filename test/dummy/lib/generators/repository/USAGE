@@ -1,0 +1,11 @@
+Description:
+    This generator will create a repository for an ActiveRecord model. The newly
+    created repository is an object of its own. You can then call AR methods on
+    UserRepository. For example: UserRepository.find(2) or UserRepository.all.
+    The User model will no longer support ActiveRecord methods, keeping it clean
+    so that it only represents the business value of Users.
+
+Example:
+    rails generate repository User
+
+    This will create a UserRepository model in /app/repositories.
