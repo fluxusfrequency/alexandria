@@ -1,3 +1,38 @@
 = Alexandria
 
-This project rocks and uses MIT-LICENSE.
+This project allows you to override your ActiveRecord models in such a way that they only contain business value, without search methods. It creates a repository for your model, which houses all of the AR searching functionality.
+
+Example:
+
+`rails generate model User`
+`rails generate repository User`
+
+The second command generates a file at `app/repositories/user_repository.rb`, which contains a ruby object called `UserRepository`. In your project, you can now call ActiveRecord methods on the UserRepository object like this: `UserRepository.find_by(name: "Ben")`. Meanwhile the User class no longer responds to ActiveRecord methods, so that the following code will result in an error:
+
+```ruby
+ben = User.new(name: "Ben")
+User.find_by(name: "Ben")
+```
+
+The value of this lies in the fact that your models now represent their business domain, and not the implementation details of working with records in the database.
+
+
+# TO DO
+
+- Figure out how to test this
+- Decide whether this is a gem or a plugin
+
+X Create generator method
+X Have it create the correctly named repository in app/repositories
+X Override the base model to not respond to AR methods
+
+- Override the repository to hook into AR using the base models name
+- Test to ensure that the base model no longer responds to active record
+- Test to ensure that the repository responds to the appropriate class methods
+- Test to ensure that the repository hooks into the correct DB table for the base model
+- Consider extending the repository to offer additional methods that might be useful when managing the base model.
+
+
+
+
+This project is freely distributed under the MIT-LICENSE.
